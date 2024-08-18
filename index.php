@@ -1,18 +1,20 @@
 <?php
 $whitelistedPages = ["register", "login", "home"];
 
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['page'])) {
+if (isset($_GET['page'])) {
     $page = $_GET['page'];
-
+    // connectToDB('dashboard_app', '127.0.0.1', '3306', 'root', '');
     if (in_array($page, $whitelistedPages)) {
         switch ($page) {
             case "register":
                 require_once "views/register.view.php";
                 break;
             case "login":
+                require_once "handlers/login.handler.php";
                 require_once "views/login.view.php";
                 break;
             case "home":
+                require "handlers/home.handler.php";
                 require_once "views/home.view.php";
                 break;
             default:
@@ -23,21 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['page'])) {
         echo "<h1>Page not found.</h1><a href='index.php'>Home</a>";
     }
 } else {
-    header("Location: index.php?page=login");
+    // header("Location: index.php?page=login");
+    echo "<h1>Page not found. RR</h1><a href='index.php'>Home</a>";
     exit();
 }
 
-// Check if the user is logged in, if true we make the default redirect to the dashboard page, if not we redirect him to the login page
-/* TODO
-function isLoggedIn()
-{
-    // Assuming you have a session variable to store the user's login status
-    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-        header('Location: dashboard.php');
-        exit;k
-    } else {
-        header('Location: login.php');
-        exit;
-    }
-}
-*/

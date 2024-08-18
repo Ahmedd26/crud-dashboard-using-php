@@ -25,14 +25,10 @@
                 </svg>
             </button>
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-                <ul class="nav-ul">
-                    <li>
-                        <a href="?page=register" class="link">Register</a>
-                    </li>
-                    <li>
-                        <a href="?page=login" class="link" aria-current="page">Login</a>
-                    </li>
-                </ul>
+                <form method="POST" class="flex items-center">
+                    <input type="hidden" name="logout">
+                    <button type="submit" class="default-btn !m-0">logout</button>
+                </form>
             </div>
         </div>
     </nav>
