@@ -27,10 +27,10 @@
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul class="nav-ul">
                     <li>
-                        <a href="" class="link">Register</a>
+                        <a href="?page=register" class="link">Register</a>
                     </li>
                     <li>
-                        <a href="" class="active-link" aria-current="page">Login</a>
+                        <a href="?page=login" class="active-link" aria-current="page">Login</a>
                     </li>
                 </ul>
             </div>
@@ -53,7 +53,8 @@
                 </div>
                 <button type="submit" class="full-btn">Login</button>
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                    Don't have an account? <a href="#" class="text-blue-700 hover:underline dark:text-blue-500">Register
+                    Don't have an account? <a href="?page=register"
+                        class="text-blue-700 hover:underline dark:text-blue-500">Register
                     </a>
                 </div>
             </form>
