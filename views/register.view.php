@@ -37,33 +37,59 @@
         </div>
     </nav>
     <!-- Form -->
-    <div class="my-8 max-w-lg mx-auto">
+    <div class="my-8 max-w-xl mx-auto">
         <div class="p-4 md:p-5">
-            <form class="space-y-6" action="#" method="POST" enctype="multipart/form-data">
+            <form class="space-y-5" action="?page=register" method="POST" enctype="multipart/form-data" novalidate>
                 <div>
-                    <label for="name" class="label">Name</label>
+                    <?php if (array_key_exists("name", $errors)): ?>
+                        <label for="name" class="label !text-red-500">
+                            <?= $errors["name"] ?>
+                        </label>
+                    <?php else: ?>
+                        <label for="name" class="label">Name</label>
+                    <?php endif ?>
                     <input type="text" name="name" id="name" class="basic-input" placeholder="John Doe" required />
                 </div>
                 <div>
-                    <label for="email" class="label">Email</label>
-                    <input type="email" name="email" id="email" class="basic-input" placeholder="name@company.com"
-                        required />
+                    <?php if (array_key_exists("email", $errors)): ?>
+                        <label for="email" class="label !text-red-500">
+                            <?= $errors["email"] ?>
+                        </label>
+                    <?php else: ?>
+                        <label for="email" class="label">Email</label>
+                    <?php endif ?> <input type="email" name="email" id="email" class="basic-input"
+                        placeholder="name@company.com" required />
                 </div>
                 <div>
-                    <label for="password" class="label">
-                        Password</label>
+                    <?php if (array_key_exists("password", $errors)): ?>
+                        <label for="password" class="label !text-red-500">
+                            <?= $errors["password"] ?>
+                        </label>
+                    <?php else: ?>
+                        <label for="password" class="label">Password</label>
+                    <?php endif ?>
                     <input type="password" name="password" id="password" placeholder="••••••••" class="basic-input"
                         required />
                 </div>
                 <div>
-                    <label for="confirmPassword" class="label">
-                        Confirm password</label>
+                    <?php if (array_key_exists("confirmPassword", $errors)): ?>
+                        <label for="confirmPassword" class="label !text-red-500">
+                            <?= $errors["confirmPassword"] ?></label>
+                    <?php else: ?>
+                        <label for="confirmPassword" class="label">Confirm password</label>
+                    <?php endif ?>
                     <input type="password" name="confirmPassword" id="confirmPassword" placeholder="••••••••"
                         class="basic-input" required />
                 </div>
                 <div>
-                    <label class="label" for="file_input">Profile picture</label>
-                    <input class="file-input" id="file_input" type="file">
+                    <?php if (array_key_exists("profilePicture", $errors)): ?>
+                        <label for="file_input" class="label !text-red-500">
+                            <?= $errors["profilePicture"] ?>
+                        </label>
+                    <?php else: ?>
+                        <label for="file_input" class="label">Profile picture</label>
+                    <?php endif ?>
+                    <input class="file-input" id="file_input" type="file" name="profilePicture">
                     <p class="mt-1.5 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG, or JPG
                         (MAX. SIZE 5MB).</p>
                 </div>
@@ -72,6 +98,20 @@
                     Already have an account? <a href="?page=login"
                         class="text-blue-700 hover:underline dark:text-blue-500">Login
                     </a>
+                </div>
+                <div>
+                    <?php if (array_key_exists("email_exists", $errors)): ?>
+                        <div class='alert' role='alert'>
+                            <?= $errors['email_exists'] ?>
+                        </div>
+                    <?php endif ?>
+                </div>
+                <div>
+                    <?php if (array_key_exists("database", $errors)): ?>
+                        <div class='alert' role='alert'>
+                            <?= $errors['database'] ?>
+                        </div>
+                    <?php endif ?>
                 </div>
             </form>
         </div>

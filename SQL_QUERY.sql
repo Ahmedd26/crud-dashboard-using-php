@@ -17,3 +17,8 @@ INSERT INTO users (full_name, email, password, profile_picture) VALUES
 ('Charlie Davis', 'charlie@test.com', 'password123', 'profile5.jpg');
 
 SELECT * FROM users;
+DELETE FROM users WHERE id > 5;
+
+INSERT INTO users (full_name, email, password, profile_picture) VALUES
+('ahmed', 'ahmed@test.com', 'asdfghjk', 'profile1.jpg'),
+

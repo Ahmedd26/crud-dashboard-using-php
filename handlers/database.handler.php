@@ -23,17 +23,61 @@ function getAllUsers()
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
-
-function authUser($email, $password)
+function getSingleUser($id)
 {
     $db = connectToDB('dashboard_app', '127.0.0.1', '3306', 'root', '');
 
-    $query = "SELECT * FROM users WHERE email = ? AND password = ?;";
+    $query = "SELECT * FROM users WHERE id = ?;";
     $stmt = $db->prepare($query);
-    $stmt->execute([$email, $password]);
+    $stmt->execute([$id]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result[0];
 }
 
 
+function authUser($email, $password)
+{
+    $db = connectToDB('dashboard_app', '127.0.0.1', '3306', 'root', '');
+    $query = "SELECT * FROM users WHERE email = ?;";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$email]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    if ($result && password_verify($password, $result['password'])) {
+        return $result;
+    } else {
+        return false;
+    }
+}
+
+
+
+function registerUser($fullName, $email, $password, $profilePicture)
+{
+    try {
+        $db = connectToDB('dashboard_app', '127.0.0.1', '3306', 'root', '');
+
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+        $query = "INSERT INTO users (full_name, email, password, profile_picture) VALUES (?, ?, ?, ?);";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$fullName, $email, $hashedPassword, $profilePicture]);
+
+        $id = $db->lastInsertId();
+        return getSingleUser($id);
+
+    } catch (PDOException $e) {
+        // echo "<pre class='text-2xl text-white'>";
+        // print_r($e->errorInfo[0] === 23000 ? 'false' : 'true');
+        // echo ($e->getCode() == 23000 ? 'true' : 'false');
+        // echo ($e->errorInfo[1] == 1062 ? 'true' : 'false');
+        // echo "</pre>";
+        // Handle duplicate email error
+        if ($e->getCode() == 23000 && $e->errorInfo[1] == 1062) {
+            return 'email_exists';
+        } else {
+            // Handle any other database-related error
+            return 'db_error';
+        }
+    }
+}

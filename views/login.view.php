@@ -39,11 +39,19 @@
     <!-- Form -->
     <div class="my-8 max-w-lg mx-auto">
         <div class="p-4 md:p-5">
-            <form class="space-y-6" action="?page=login" method="POST">
+            <form class="space-y-6" action="?page=login" method="POST" novalidate>
                 <div>
                     <label for="email" class="label">Email</label>
-                    <input type="email" name="email" id="email" class="basic-input" placeholder="name@company.com"
+                    <input type="email" name="email" id="email" class="basic-input" placeholder="john.doe@example.com"
                         required />
+                </div>
+                <div>
+                    <?php if (array_key_exists("email", $errors)): ?>
+                        <div class='p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 border border-red-800 dark:text-red-400'
+                            role='alert'>
+                            <?= $errors['email'] ?>
+                        </div>
+                    <?php endif ?>
                 </div>
                 <div>
                     <label for="password" class="label">
@@ -52,13 +60,20 @@
                         required />
                 </div>
                 <div>
-                    <?php if (isset($error)): ?>
+                    <?php if (array_key_exists("password", $errors)): ?>
                         <div class='p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 border border-red-800 dark:text-red-400'
                             role='alert'>
-                            <?= $error ?>
+                            <?= $errors['password'] ?>
                         </div>
                     <?php endif ?>
-
+                </div>
+                <div>
+                    <?php if (array_key_exists("invalid", $errors)): ?>
+                        <div class='p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 border border-red-800 dark:text-red-400'
+                            role='alert'>
+                            <?= $errors['invalid'] ?>
+                        </div>
+                    <?php endif ?>
                 </div>
                 <input type="hidden" name="login" value="true" />
                 <button type="submit" class="full-btn">Login</button>

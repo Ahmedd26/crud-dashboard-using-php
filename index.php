@@ -7,6 +7,7 @@ if (isset($_GET['page'])) {
     if (in_array($page, $whitelistedPages)) {
         switch ($page) {
             case "register":
+                require_once "handlers/register.handler.php";
                 require_once "views/register.view.php";
                 break;
             case "login":
