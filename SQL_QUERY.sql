@@ -20,5 +20,6 @@ SELECT * FROM users;
 DELETE FROM users WHERE id > 5;
 
 INSERT INTO users (full_name, email, password, profile_picture) VALUES
-('ahmed', 'ahmed@test.com', 'asdfghjk', 'profile1.jpg'),
+('ahmed', 'ahmed@test.com', 'asdfghjk', 'profile1.jpg');
+
 
