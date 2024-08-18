@@ -1,5 +1,5 @@
 <?php
-$whitelistedPages = ["register", "login"];
+$whitelistedPages = ["register", "login", "home"];
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['page'])) {
     $page = $_GET['page'];
@@ -11,6 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['page'])) {
                 break;
             case "login":
                 require_once "views/login.view.php";
+                break;
+            case "home":
+                require_once "views/home.view.php";
                 break;
             default:
                 echo "<h1>Page not found.</h1><a href='index.php'>Home</a>";

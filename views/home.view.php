@@ -30,36 +30,14 @@
                         <a href="?page=register" class="link">Register</a>
                     </li>
                     <li>
-                        <a href="?page=login" class="active-link" aria-current="page">Login</a>
+                        <a href="?page=login" class="link" aria-current="page">Login</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- Form -->
-    <div class="my-8 max-w-lg mx-auto">
-        <div class="p-4 md:p-5">
-            <form class="space-y-6" action="#" method="POST">
-                <div>
-                    <label for="email" class="label">Email</label>
-                    <input type="email" name="email" id="email" class="basic-input" placeholder="name@company.com"
-                        required />
-                </div>
-                <div>
-                    <label for="password" class="label">
-                        Password</label>
-                    <input type="password" name="password" id="password" placeholder="••••••••" class="basic-input"
-                        required />
-                </div>
-                <button type="submit" class="full-btn">Login</button>
-                <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                    Don't have an account? <a href="?page=register"
-                        class="text-blue-700 hover:underline dark:text-blue-500">Register
-                    </a>
-                </div>
-            </form>
-        </div>
-    </div>
+
     <script src="/node_modules/flowbite/dist/flowbite.js"></script>
 </body>
 
