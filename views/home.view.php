@@ -50,9 +50,12 @@
                             class="text-blue-500"><?= $loggedInUser['email'] ?></span></p>
                 </div>
             </div>
-            <div class="mt-6 sm:mt-auto">
+            <div class="mt-6 sm:mt-auto flex">
                 <button type="button" class="default-btn">Edit your info</button>
-                <button type="button" class="danger-btn ">Delete your account</button>
+                <form method="POST">
+                    <input type="hidden" name="deleteSelf" value="<?= $loggedInUser['id'] ?>">
+                    <button type="submit" class="danger-btn ">Delete your account</button>
+                </form>
             </div>
         </div>
 
@@ -73,6 +76,8 @@
             </div>
             <div class="grid gap-8 lg:gap-16 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <?php foreach ($users as $user): ?>
+                    <?php if ($user['id'] == $loggedInUser['id'])
+                        continue; ?>
                     <div class="text-center text-gray-500 dark:text-gray-400">
                         <img class="mx-auto mb-4 w-36 h-36 rounded-full bg-profile-placeholder bg-center bg-cover"
                             src="./uploads/<?= $user['profile_picture'] ?>" alt="Bonnie Avatar">
@@ -82,10 +87,14 @@
                         <p>Email: <span class="text-blue-500"><?= $user['email'] ?></span></p>
                         <div class="mt-4 max-w-60 mx-auto flex justify-center gap-1">
                             <button class="default-btn flex-1">Edit</button>
-                            <button class="danger-btn flex-1">Remove</button>
+                            <form method="POST">
+                                <input type="hidden" name="deleteUser" value="<?= $user['id'] ?>">
+                                <button class="danger-btn flex-1">Remove</button>
+                            </form>
                         </div>
                     </div>
                 <?php endforeach; ?>
+
 
                 <!-- <div class="text-center text-gray-500 dark:text-gray-400">
                     <img class="mx-auto mb-4 w-36 h-36 rounded-full"

@@ -78,3 +78,17 @@ function registerUser($fullName, $email, $password, $profilePicture)
         }
     }
 }
+
+function deleteUserFromDB($userId)
+{
+    try {
+        $db = connectToDB('dashboard_app', '127.0.0.1', '3306', 'root', '');
+
+        $query = "DELETE FROM users WHERE id = ?;";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$userId]);
+        return true;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
