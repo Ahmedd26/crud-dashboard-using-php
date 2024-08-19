@@ -50,7 +50,7 @@
                             class="text-blue-500"><?= $loggedInUser['email'] ?></span></p>
                 </div>
             </div>
-            <div class="mt-6 sm:mt-auto flex">
+            <div class="mt-6 sm:mt-auto flex items-center gap-2">
                 <button type="button" class="default-btn">Edit your info</button>
                 <form method="POST">
                     <input type="hidden" name="deleteSelf" value="<?= $loggedInUser['id'] ?>">
@@ -85,41 +85,63 @@
                             <?= $user['full_name'] ?>
                         </h3>
                         <p>Email: <span class="text-blue-500"><?= $user['email'] ?></span></p>
-                        <div class="mt-4 max-w-60 mx-auto flex justify-center gap-1">
+                        <div class="mt-4 max-w-60 mx-auto flex justify-center gap-2">
                             <button class="default-btn flex-1">Edit</button>
-                            <form method="POST">
-                                <input type="hidden" name="deleteUser" value="<?= $user['id'] ?>">
-                                <button class="danger-btn flex-1">Remove</button>
-                            </form>
+                            <button data-modal-target="popup-modal-<?= $user['id'] ?>"
+                                data-modal-toggle="popup-modal-<?= $user['id'] ?>" class="danger-btn flex-1"
+                                type="button">Remove</button>
+                            <!-- DELETE MODAL -->
+                            <div id="popup-modal-<?= $user['id'] ?>" tabindex="-1"
+                                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative p-4 w-full max-w-md max-h-full">
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <button type="button"
+                                            class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                            data-modal-hide="popup-modal-<?= $user['id'] ?>">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                        <div class="p-4 md:p-5 text-center flex items-center flex-col">
+                                            <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 20 20">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>
+                                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you
+                                                sure you want
+                                                to delete user <br /> <span class="text-gray-100 font-semibold">
+                                                    <?= $user['full_name'] ?></span></h3>
+                                            <div class="flex items-center justify-center gap-4">
+                                                <form method="POST" class="flex items-center flex-1">
+                                                    <input type="hidden" name="deleteUser" value="<?= $user['id'] ?>">
+                                                    <button data-modal-hide="popup-modal-<?= $user['id'] ?>" type="submit"
+                                                        class="danger-btn m-0">
+                                                        Yes, I'm sure
+                                                    </button>
+                                                </form>
+                                                <button data-modal-hide="popup-modal-<?= $user['id'] ?>" type="button"
+                                                    class="secondary-btn">No,
+                                                    cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 <?php endforeach; ?>
-
-
-                <!-- <div class="text-center text-gray-500 dark:text-gray-400">
-                    <img class="mx-auto mb-4 w-36 h-36 rounded-full"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/helene-engels.png"
-                        alt="Helene Avatar">
-                    <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Helene Engels</h3>
-                    <p>Email: <span class="text-blue-500">helene.engels@example.com</span></p>
-                    <div class="mt-4 max-w-60 mx-auto flex justify-center gap-1">
-                        <button class="default-btn flex-1">Edit</button>
-                        <button class="danger-btn flex-1">Remove</button>
-                    </div>
-                </div>
-                <div class="text-center text-gray-500 dark:text-gray-400">
-                    <img class="mx-auto mb-4 w-36 h-36 rounded-full"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                        alt="Jese Avatar">
-                    <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Jese Leos</h3>
-                    <p>Email: <span class="text-blue-500">jese.leos@example.com</span></p>
-                    <div class="mt-4 max-w-60 mx-auto flex justify-center gap-1">
-                        <button class="default-btn flex-1">Edit</button>
-                        <button class="danger-btn flex-1">Remove</button>
-                    </div>
-                </div> -->
-
             </div>
+
+
+
+
         </div>
     </section>
 
