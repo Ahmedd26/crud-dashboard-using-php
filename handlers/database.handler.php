@@ -17,7 +17,7 @@ function getAllUsers()
 {
     $db = connectToDB('dashboard_app', '127.0.0.1', '3306', 'root', '');
 
-    $query = "SELECT * FROM users;";
+    $query = "SELECT id, full_name, email, profile_picture FROM users;";
     $stmt = $db->prepare($query);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -26,31 +26,28 @@ function getAllUsers()
 function getSingleUser($id)
 {
     $db = connectToDB('dashboard_app', '127.0.0.1', '3306', 'root', '');
-
-    $query = "SELECT * FROM users WHERE id = ?;";
+    $query = "SELECT id, full_name, email, profile_picture FROM users WHERE id = ?;";
     $stmt = $db->prepare($query);
     $stmt->execute([$id]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result[0];
 }
 
-
 function authUser($email, $password)
 {
     $db = connectToDB('dashboard_app', '127.0.0.1', '3306', 'root', '');
-    $query = "SELECT * FROM users WHERE email = ?;";
+    $query = "SELECT id, email, password FROM users WHERE email = ?;";
     $stmt = $db->prepare($query);
     $stmt->execute([$email]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($result && password_verify($password, $result['password'])) {
-        return $result;
+        $authUser = getSingleUser($result['id']);
+        return $authUser;
     } else {
         return false;
     }
 }
-
-
 
 function registerUser($fullName, $email, $password, $profilePicture)
 {

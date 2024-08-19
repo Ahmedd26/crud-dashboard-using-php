@@ -1,4 +1,5 @@
 <?php
+
 $whitelistedPages = ["register", "login", "home"];
 
 if (isset($_GET['page'])) {
@@ -26,7 +27,7 @@ if (isset($_GET['page'])) {
         echo "<h1>Page not found.</h1><a href='index.php'>Home</a>";
     }
 } else {
-    // header("Location: index.php?page=login");
+    header("Location: index.php?page=login");
     echo "<h1>Page not found. RR</h1><a href='index.php'>Home</a>";
     exit();
 }

@@ -4,6 +4,11 @@ session_start();
 $errors = [];
 $inputs = [];
 
+if (isset($_SESSION['loggedInUser'])) {
+    header("Location: ?page=home");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($_POST as $key => $value) {
         if (is_string($value)) {
@@ -49,7 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $dest = "uploads/" . time() . "-" . $inputs['profilePicture'];
                 move_uploaded_file($_FILES['profilePicture']['tmp_name'], $dest);
             }
-            $inputs['profilePicture'] = $_FILES['profilePicture']['name'];
+            // $inputs['profilePicture'] = $_FILES['profilePicture']['name'];
+            $inputs['profilePicture'] = time() . "-" . $_FILES['profilePicture']['name'];
+
         }
     } else {
         $errors['profilePicture'] = "Profile picture is required.";
@@ -57,7 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-
+    // echo "<pre class='text-2xl text-white'>";
+    // echo $inputs['profilePicture'];
+    // echo '</pre>';
     if (empty($errors)) {
         $auth = registerUser($inputs['name'], $inputs['email'], $inputs['password'], $inputs['profilePicture']);
 

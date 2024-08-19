@@ -5,6 +5,11 @@ session_start();
 $inputs = [];
 $errors = [];
 
+if (isset($_SESSION['loggedInUser'])) {
+    header("Location: ?page=home");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     foreach ($_POST as $key => $value) {
         if (is_string($value)) {
@@ -21,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         if ($auth) {
             $_SESSION['loggedInUser'] = $auth;
             header("Location: ?page=home");
+            exit();
         } else {
             $errors['invalid'] = 'Email or password are invalid';
         }

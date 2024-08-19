@@ -20,7 +20,7 @@
 
 ## ROUTES:
 
--   **HOME** -> /?page=home -> Protected, must login
+-   **HOME**-> /?page=home -> Protected, must login
 -   **Login** -> /?page=login
 -   **Register** -> /?page=register
 

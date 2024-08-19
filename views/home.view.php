@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/public/css/tailwind.css" rel="stylesheet">
-    <title>Login</title>
+    <title>Dashboard</title>
 </head>
 
 <body class="dark:bg-gray-800">
@@ -39,15 +39,15 @@
         <!-- Left Side: Welcome Message and User Info -->
         <div class="flex flex-col items-start">
             <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200">Welcome Back! <span id="username"
-                    class="text-blue-500">John</span></h1>
+                    class="text-blue-500"><?= $loggedInUser['full_name'] ?></span></h1>
             <div class="mt-4 flex items-center">
-                <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Profile Picture"
-                    class="w-16 h-16 rounded-full border-2 border-gray-300">
+                <img src="./uploads/<?= $loggedInUser['profile_picture'] ?>"
+                    class="w-16 h-16 rounded-full border-2 border-gray-300 bg-profile-placeholder bg-center bg-cover">
 
 
                 <div class="ml-4">
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-300">Email: <span id="email"
-                            class="text-blue-500">user@example.com</span></p>
+                            class="text-blue-500"><?= $loggedInUser['email'] ?></span></p>
                 </div>
             </div>
             <div class="mt-6 sm:mt-auto">
@@ -72,18 +72,22 @@
                     update, or remove them.</ev>
             </div>
             <div class="grid gap-8 lg:gap-16 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                <div class="text-center text-gray-500 dark:text-gray-400">
-                    <img class="mx-auto mb-4 w-36 h-36 rounded-full"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
-                        alt="Bonnie Avatar">
-                    <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Bonnie Green</h3>
-                    <p>Email: <span class="text-blue-500">boonie.green@example.com</span></p>
-                    <div class="mt-4 max-w-60 mx-auto flex justify-center gap-1">
-                        <button class="default-btn flex-1">Edit</button>
-                        <button class="danger-btn flex-1">Remove</button>
+                <?php foreach ($users as $user): ?>
+                    <div class="text-center text-gray-500 dark:text-gray-400">
+                        <img class="mx-auto mb-4 w-36 h-36 rounded-full bg-profile-placeholder bg-center bg-cover"
+                            src="./uploads/<?= $user['profile_picture'] ?>" alt="Bonnie Avatar">
+                        <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            <?= $user['full_name'] ?>
+                        </h3>
+                        <p>Email: <span class="text-blue-500"><?= $user['email'] ?></span></p>
+                        <div class="mt-4 max-w-60 mx-auto flex justify-center gap-1">
+                            <button class="default-btn flex-1">Edit</button>
+                            <button class="danger-btn flex-1">Remove</button>
+                        </div>
                     </div>
-                </div>
-                <div class="text-center text-gray-500 dark:text-gray-400">
+                <?php endforeach; ?>
+
+                <!-- <div class="text-center text-gray-500 dark:text-gray-400">
                     <img class="mx-auto mb-4 w-36 h-36 rounded-full"
                         src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/helene-engels.png"
                         alt="Helene Avatar">
@@ -104,11 +108,13 @@
                         <button class="default-btn flex-1">Edit</button>
                         <button class="danger-btn flex-1">Remove</button>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
     </section>
+
+
     <script src=" /node_modules/flowbite/dist/flowbite.js"></script>
 </body>
 

@@ -1135,14 +1135,6 @@ input:checked + .toggle-bg {
   z-index: 50;
 }
 
-.col-start-2 {
-  grid-column-start: 2;
-}
-
-.col-end-3 {
-  grid-column-end: 3;
-}
-
 .\!m-0 {
   margin: 0px !important;
 }
@@ -1380,20 +1372,12 @@ input:checked + .toggle-bg {
   resize: both;
 }
 
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .grid-cols-7 {
   grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-col {
@@ -1434,10 +1418,6 @@ input:checked + .toggle-bg {
 
 .gap-1 {
   gap: 0.25rem;
-}
-
-.gap-3 {
-  gap: 0.75rem;
 }
 
 .gap-8 {
@@ -1574,6 +1554,18 @@ input:checked + .toggle-bg {
   background-color: rgb(255 255 255 / 0.5);
 }
 
+.bg-profile-placeholder {
+  background-image: url('https://www.gravatar.com/avatar/?d=mp&s=150');
+}
+
+.bg-cover {
+  background-size: cover;
+}
+
+.bg-center {
+  background-position: center;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -1698,6 +1690,11 @@ input:checked + .toggle-bg {
   letter-spacing: -0.025em;
 }
 
+.\!text-red-500 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(240 82 82 / var(--tw-text-opacity)) !important;
+}
+
 .text-blue-500 {
   --tw-text-opacity: 1;
   color: rgb(63 131 248 / var(--tw-text-opacity));
@@ -1751,21 +1748,6 @@ input:checked + .toggle-bg {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.\!text-red-700 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(200 30 30 / var(--tw-text-opacity)) !important;
-}
-
-.\!text-red-600 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(224 36 36 / var(--tw-text-opacity)) !important;
-}
-
-.\!text-red-500 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(240 82 82 / var(--tw-text-opacity)) !important;
 }
 
 .opacity-0 {
