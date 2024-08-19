@@ -1202,6 +1202,10 @@ input:checked + .toggle-bg {
   margin-top: 0.5rem;
 }
 
+.mt-3\.5 {
+  margin-top: 0.875rem;
+}
+
 .mt-4 {
   margin-top: 1rem;
 }
@@ -1212,6 +1216,10 @@ input:checked + .toggle-bg {
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.\!mr-auto {
+  margin-right: auto !important;
 }
 
 .block {
@@ -1262,10 +1270,6 @@ input:checked + .toggle-bg {
   height: 0.75rem;
 }
 
-.h-36 {
-  height: 9rem;
-}
-
 .h-4 {
   height: 1rem;
 }
@@ -1294,6 +1298,10 @@ input:checked + .toggle-bg {
   height: auto;
 }
 
+.h-32 {
+  height: 8rem;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -1318,10 +1326,6 @@ input:checked + .toggle-bg {
   width: 0.75rem;
 }
 
-.w-36 {
-  width: 9rem;
-}
-
 .w-4 {
   width: 1rem;
 }
@@ -1340,6 +1344,10 @@ input:checked + .toggle-bg {
 
 .w-full {
   width: 100%;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .max-w-60 {
@@ -1490,6 +1498,12 @@ input:checked + .toggle-bg {
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
 .space-y-5 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1500,6 +1514,17 @@ input:checked + .toggle-bg {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.divide-y > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-y-reverse: 0;
+  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+
+.divide-gray-500 > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgb(107 114 128 / var(--tw-divide-opacity));
 }
 
 .overflow-hidden {
@@ -1542,6 +1567,11 @@ input:checked + .toggle-bg {
   border-end-start-radius: 0.5rem;
 }
 
+.rounded-t {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
 .border {
   border-width: 1px;
 }
@@ -1552,6 +1582,10 @@ input:checked + .toggle-bg {
 
 .border-2 {
   border-width: 2px;
+}
+
+.border-b {
+  border-bottom-width: 1px;
 }
 
 .border-blue-600 {
@@ -1701,6 +1735,10 @@ input:checked + .toggle-bg {
   text-align: center;
 }
 
+.text-start {
+  text-align: start;
+}
+
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -1724,6 +1762,11 @@ input:checked + .toggle-bg {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-bold {
@@ -1829,6 +1872,16 @@ input:checked + .toggle-bg {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.\!text-red-600 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(224 36 36 / var(--tw-text-opacity)) !important;
+}
+
+.\!text-red-950 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(69 10 10 / var(--tw-text-opacity)) !important;
 }
 
 .opacity-0 {
@@ -2386,6 +2439,18 @@ input:checked + .toggle-bg {
   --tw-ring-color: rgb(55 65 81 / var(--tw-ring-opacity));
 }
 
+.team-avatar {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  height: 9rem;
+  width: 9rem;
+  border-radius: 9999px;
+  background-image: url('https://www.gravatar.com/avatar/?d=mp&s=150');
+  background-size: cover;
+  background-position: center;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
@@ -2618,6 +2683,11 @@ input:checked + .toggle-bg {
 .dark\:hover\:text-white:hover:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.dark\:focus\:ring-blue-800:focus:is(.dark *) {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(30 66 159 / var(--tw-ring-opacity));
 }
 
 .dark\:focus\:ring-gray-600:focus:is(.dark *) {

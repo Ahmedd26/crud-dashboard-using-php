@@ -55,3 +55,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['deleteUser'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['deleteSelf'])) {
     deleteSelf($_POST['deleteSelf']);
 }
+$test = null;
+// $test = true;
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['closeModal'])) {
+    $test = false;
+}
+
+$errors = [];
+$inputs = [];
+//** UPDATE LOGIC
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editUser'])) {
+    echo "test";
+    $userId = $_POST['editUser'];
+    $fullName = $_POST['name'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
+    $profilePicture = $_POST['profilePicture'];
+
+
+    // Password Validation
+    if (!empty($password)) {
+        if ((!preg_match('/^[a-z0-9_]{8,}$/', $password) || preg_match('/[A-Z]/', $password))) {
+            $errors['password'] = "Password must be at least 8 characters long, contain only lowercase letters, numbers, and underscores, and must not contain uppercase letters.";
+        }
+        // Confirm Password Validation
+        if (!empty($password) && $password !== $confirmPassword) {
+            $errors['confirmPassword'] = "Password and Confirm Password must match.";
+        }
+    }
+    // Profile Picture Validation
+    if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] !== 4) {
+        $fileType = $_FILES['profilePicture']['type'];
+        $fileSize = $_FILES['profilePicture']['size'];
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!in_array($fileType, $allowedTypes) || $fileSize > 5_000_000) {
+            // 5MB limit
+            $errors['profilePicture'] = "Invalid profile picture. Only JPEG, PNG, and GIF formats are allowed and size must be less than 5MB.";
+        } else {
+            function storeImageLocally()
+            {
+                $profilePicture = $_FILES['profilePicture']['name'];
+                $dest = "uploads/" . time() . "-" . $profilePicture;
+                move_uploaded_file($_FILES['profilePicture']['tmp_name'], $dest);
+            }
+            $profilePicture = time() . "-" . $_FILES['profilePicture']['name'];
+
+        }
+    }
+
+    if (!empty($errors)) {
+        $test = true;
+    }
+    if (empty($errors)) {
+        $test = false;
+        echo "No errrors";
+        $update = updateUserInDB($userId, $fullName, $profilePicture, $password);
+
+        if ($update) {
+            storeImageLocally();
+            header("Location: ?page=home");
+            exit;
+        } else {
+            $errors['invalid'] = 'An unexpected error occurred. Please try again.';
+        }
+    }
+
+
+
+}
+

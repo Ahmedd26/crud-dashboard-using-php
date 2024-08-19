@@ -42,7 +42,7 @@
                     class="text-blue-500"><?= $loggedInUser['full_name'] ?></span></h1>
             <div class="mt-4 flex items-center">
                 <img src="./uploads/<?= $loggedInUser['profile_picture'] ?>"
-                    class="w-16 h-16 rounded-full border-2 border-gray-300 bg-profile-placeholder bg-center bg-cover">
+                    class="w-32 h-32 rounded-full border-2 border-gray-300 bg-profile-placeholder bg-center bg-cover">
 
 
                 <div class="ml-4">
@@ -51,7 +51,10 @@
                 </div>
             </div>
             <div class="mt-6 sm:mt-auto flex items-center gap-2">
-                <button type="button" class="default-btn">Edit your info</button>
+                <!-- UPDATE: Modal toggle -->
+                <button type="button" data-modal-target="authentication-modal-<?= $loggedInUser['id'] ?>"
+                    data-modal-toggle="authentication-modal-<?= $loggedInUser['id'] ?>" class="default-btn">Edit your
+                    info</button>
 
                 <button data-modal-target="popup-modal-<?= $loggedInUser['id'] ?>"
                     data-modal-toggle="popup-modal-<?= $loggedInUser['id'] ?>" class="danger-btn flex-1"
@@ -97,6 +100,84 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!-- UPDATE: Main modal -->
+                <div id="authentication-modal-<?= $loggedInUser['id'] ?>" tabindex="-1" aria-hidden="true"
+                    class="<?php if (!$test) {
+                        echo 'hidden';
+                    } else {
+                        echo 'flex';
+                    } ?> overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative p-4 w-full max-w-md max-h-full">
+                        <!-- Modal content -->
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                            <!-- Modal header -->
+                            <div
+                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                    Edit your info
+                                </h3>
+                                <form method="POST">
+                                    <input type="hidden" name="closeModal" value="true">
+                                    <button type="submit"
+                                        class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-hide="authentication-modal-<?= $loggedInUser['id'] ?>">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </form>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="p-4 md:p-5">
+                                <form class="space-y-4" action="#" novalidate enctype="multipart/form-data">
+                                    <!-- username -->
+                                    <div>
+                                        <label for="name" class="label">
+                                            Name</label>
+                                        <input type="text" name="name" id="name" class="basic-input"
+                                            placeholder="john.doe@example.com" value="<?= $loggedInUser['full_name'] ?>"
+                                            required />
+                                    </div>
+                                    <!-- Password -->
+                                    <div>
+                                        <label for="password" class="label">
+                                            password</label>
+                                        <input type="password" name="password" id="password" placeholder="••••••••"
+                                            class="basic-input" required />
+                                    </div>
+                                    <!-- Confirm password -->
+                                    <div>
+                                        <label for="confirmPassword" class="label">Confirm
+                                            Password</label>
+                                        <input type="password" name="confirmPassword" id="confirmPassword"
+                                            placeholder="••••••••" class="basic-input" required />
+                                    </div>
+                                    <div>
+                                        <label for="file_input" class="label">Profile picture</label>
+                                        <input class="file-input" id="file_input" type="file" name="profilePicture">
+                                        <p class="mt-1.5 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
+                                            PNG, or JPG
+                                            (MAX. SIZE 5MB).</p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button type="submit" class="default-btn flex-1">Save edits</button>
+                                    </div>
+
+                                </form>
+                                <form method="POST" class="mt-3.5 w-full">
+                                    <input type="hidden" name="closeModal" value="true">
+                                    <button type="submit" class="secondary-btn w-full ">cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -120,17 +201,131 @@
                     <?php if ($user['id'] == $loggedInUser['id'])
                         continue; ?>
                     <div class="text-center text-gray-500 dark:text-gray-400">
-                        <img class="mx-auto mb-4 w-36 h-36 rounded-full bg-profile-placeholder bg-center bg-cover"
-                            src="./uploads/<?= $user['profile_picture'] ?>" alt="Bonnie Avatar">
+                        <img class="team-avatar" src="./uploads/<?= $user['profile_picture'] ?>"
+                            alt="<?= $user['full_name'] ?>">
                         <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                             <?= $user['full_name'] ?>
                         </h3>
                         <p>Email: <span class="text-blue-500"><?= $user['email'] ?></span></p>
                         <div class="mt-4 max-w-60 mx-auto flex justify-center gap-2">
-                            <button class="default-btn flex-1">Edit</button>
+                            <button type="button" data-modal-target="authentication-modal-<?= $user['id'] ?>"
+                                data-modal-toggle="authentication-modal-<?= $user['id'] ?>" class="default-btn flex-1">Edit
+                                info</button>
                             <button data-modal-target="popup-modal-<?= $user['id'] ?>"
                                 data-modal-toggle="popup-modal-<?= $user['id'] ?>" class="danger-btn flex-1"
                                 type="button">Remove</button>
+                            <!--** ** ** UPDATE: Main modal ** ** **-->
+                            <!--** ** ** UPDATE: Main modal ** ** **-->
+                            <!--** ** ** UPDATE: Main modal ** ** **-->
+                            <div id="authentication-modal-<?= $user['id'] ?>" tabindex="-1" aria-hidden="true"
+                                class="<?php if (!$test) {
+                                    echo 'hidden';
+                                } else {
+                                    echo 'flex';
+                                } ?> overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative p-4 w-full max-w-md max-h-full">
+                                    <!-- Modal content -->
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <!-- Modal header -->
+                                        <div
+                                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                Edit <?= $user['full_name'] ?> info
+                                            </h3>
+                                            <form method="POST">
+                                                <input type="hidden" name="closeModal" value="true">
+                                                <button type="submit"
+                                                    class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    data-modal-hide="authentication-modal-<?= $user['id'] ?>">
+                                                    <svg class="w-3 h-3" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <div class="p-4 md:p-5">
+                                            <!--** ** **  UPDATE FORM ** ** **-->
+                                            <!--** ** **  UPDATE FORM ** ** **-->
+                                            <!--** ** **  UPDATE FORM ** ** **-->
+                                            <form class="space-y-4  action=" ?page=home" method="POST" novalidate
+                                                enctype="multipart/form-data">
+                                                <!-- username -->
+                                                <div class="flex flex-col items-start justify-start">
+                                                    <?php if (array_key_exists("name", $errors)): ?>
+                                                        <label for="name" class="label !text-red-950 text-start">
+                                                            <?= $errors["name"] ?>
+                                                        </label>
+                                                    <?php else: ?>
+                                                        <label for="name" class="label">Name</label>
+                                                    <?php endif ?>
+                                                    <input type="text" name="name" id="name" class="basic-input"
+                                                        placeholder="john.doe@example.com" />
+                                                </div>
+                                                <!-- Password -->
+                                                <div class="flex flex-col items-start justify-start">
+                                                    <?php if (array_key_exists("password", $errors)): ?>
+                                                        <label for="password" class="label !text-red-950 text-start">
+                                                            <?= $errors["password"] ?>
+                                                        </label>
+                                                    <?php else: ?>
+                                                        <label for="password" class="label">Password</label>
+                                                    <?php endif ?>
+                                                    <input type="password" name="password" id="password"
+                                                        placeholder="••••••••" class="basic-input" />
+                                                </div>
+                                                <!-- Confirm password -->
+                                                <div class="flex flex-col items-start justify-start">
+                                                    <?php if (array_key_exists("confirmPassword", $errors)): ?>
+                                                        <label for="confirmPassword" class="label !text-red-950 text-start">
+                                                            <?= $errors["confirmPassword"] ?>
+                                                        </label>
+                                                    <?php else: ?>
+                                                        <label for="confirmPassword" class="label">ConfirmPassword</label>
+                                                    <?php endif ?>
+                                                    <input type="password" name="confirmPassword" id="confirmPassword"
+                                                        placeholder="••••••••" class="basic-input" />
+                                                </div>
+                                                <div class="flex flex-col items-start justify-start">
+                                                    <?php if (array_key_exists("profilePicture", $errors)): ?>
+                                                        <label for="file_input" class="label !text-red-950 text-start">
+                                                            <?= $errors["profilePicture"] ?>
+                                                        </label>
+                                                    <?php else: ?>
+                                                        <label for="file_input" class="label">Profile picture</label>
+                                                    <?php endif ?>
+                                                    <input class="file-input" id="file_input" type="file"
+                                                        name="profilePicture">
+                                                    <p class="mt-1.5 text-sm text-gray-500 dark:text-gray-300"
+                                                        id="file_input_help">
+                                                        PNG, or JPG
+                                                        (MAX. SIZE 5MB).</p>
+                                                </div>
+
+                                                <div class="flex items-center gap-2">
+                                                    <input type="hidden" name="editUser" value="<?= $user['id'] ?>">
+                                                    <button type="submit" class="default-btn flex-1">Save edits</button>
+                                                </div>
+
+                                            </form>
+                                            <form method="POST" class="mt-3.5 w-full">
+                                                <input type="hidden" name="closeModal" value="true">
+                                                <button type="submit" class="secondary-btn w-full ">cancel</button>
+                                            </form>
+                                            <?php if (array_key_exists("invalid", $errors)): ?>
+                                                <div class='p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 border border-red-800 dark:text-red-400'
+                                                    role='alert'>
+                                                    <?= $errors['invalid'] ?>
+                                                </div>
+                                            <?php endif ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- DELETE MODAL -->
                             <div id="popup-modal-<?= $user['id'] ?>" tabindex="-1"
                                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -179,15 +374,15 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-
-
-
-
         </div>
     </section>
 
 
+
     <script src=" /node_modules/flowbite/dist/flowbite.js"></script>
+    <?php if ($test): ?>
+        <div class='bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40'></div>
+    <?php endif; ?>
 </body>
 
 </html>

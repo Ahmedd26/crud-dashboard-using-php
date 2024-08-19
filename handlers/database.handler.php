@@ -92,3 +92,96 @@ function deleteUserFromDB($userId)
         return $e->getMessage();
     }
 }
+
+// UPDATE
+function updateUserInDB($id, $fullName = "", $profilePicture = "", $password = "")
+{
+    try {
+        $db = connectToDB('dashboard_app', '127.0.0.1', '3306', 'root', '');
+
+        $fieldsToUpdate = [];
+        $params = [':id' => $id];
+
+        if (!empty($fullName)) {
+            $fieldsToUpdate[] = "full_name = :full_name";
+            $params[':full_name'] = $fullName;
+        }
+
+        if (!empty($profilePicture)) {
+            $fieldsToUpdate[] = "profile_picture = :profile_picture";
+            $params[':profile_picture'] = $profilePicture;
+        }
+
+        if (!empty($password)) {
+            $fieldsToUpdate[] = "password = :password";
+            $params[':password'] = password_hash($password, PASSWORD_BCRYPT);
+        }
+
+        if (!empty($fieldsToUpdate)) {
+            $sql = "UPDATE users SET " . implode(", ", $fieldsToUpdate) . " WHERE id = :id";
+            $stmt = $db->prepare($sql);
+            $stmt->execute($params);
+        }
+
+        return true;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
+/*
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+*/
+/*
+    function updateUserByEmail($email, $name = "", $image = "", $password = "")
+    {
+        global $dbh;
+        if (isset($name) && strlen(trim($name)) > 0) {
+            $statement = $dbh->prepare("update users set name = :name where email = :email");
+            $statement->bindParam(':name', $name);
+            $statement->bindParam(':email', $email);
+            $statement->execute();
+        }
+        if (isset($image) && strlen(trim($image)) > 0) {
+            $statement = $dbh->prepare("update users set image = :image where email = :email");
+            $statement->bindParam(':image', $image);
+            $statement->bindParam(':email', $email);
+            $statement->execute();
+        }
+
+        if (isset($password) && strlen(trim($password)) > 0) {
+            $statement = $dbh->prepare("update users set password = :password where email = :email");
+            $statement->bindParam(':password', $password);
+            $statement->bindParam(':email', $email);
+            $statement->execute();
+        }
+        return getUserByEmail($email);
+    }
+
+    function updateUserInDB($id, $name = "", $image = "", $password = "")
+    {
+        global $dbh;
+        if (isset($name) && strlen(trim($name)) > 0) {
+            $statement = $dbh->prepare("update users set name = :name where id = :id");
+            $statement->bindParam(':name', $name);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+        }
+        if (isset($image) && strlen(trim($image)) > 0) {
+            $statement = $dbh->prepare("update users set image = :image where id = :id");
+            $statement->bindParam(':image', $image);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+        }
+
+        if (isset($password) && strlen(trim($password)) > 0) {
+            $statement = $dbh->prepare("update users set password = :password where id = :id");
+            $statement->bindParam(':password', $password);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+        }
+        return getUserById($id);
+    }
+*/
