@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/public/css/tailwind.css" rel="stylesheet">
     <title>Login</title>
+    <script src="theme-toggle.js" defer></script>
+
 </head>
 
 <body class="dark:bg-gray-800">
@@ -26,11 +28,16 @@
             </button>
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul class="nav-ul">
-                    <li>
+                    <li class="flex items-center">
                         <a href="?page=register" class="link">Register</a>
                     </li>
-                    <li>
+                    <li class="flex items-center">
                         <a href="?page=login" class="active-link" aria-current="page">Login</a>
+                    </li>
+                    <li>
+                        <button class="secondary-btn" onclick="toggleDarkMode()">
+                            Toggle theme
+                        </button>
                     </li>
                 </ul>
             </div>

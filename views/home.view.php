@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/public/css/tailwind.css" rel="stylesheet">
     <title>Dashboard</title>
+    <script src="theme-toggle.js" defer></script>
+
 </head>
 
 <body class="dark:bg-gray-800">
@@ -25,10 +27,15 @@
                 </svg>
             </button>
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-                <form method="POST" class="flex items-center">
-                    <input type="hidden" name="logout">
-                    <button type="submit" class="default-btn !m-0">logout</button>
-                </form>
+                <div class="flex items-center gap-2">
+                    <button class="secondary-btn" onclick="toggleDarkMode()">
+                        Toggle theme
+                    </button>
+                    <form method="POST" class="flex items-center">
+                        <input type="hidden" name="logout">
+                        <button type="submit" class="default-btn !m-0">logout</button>
+                    </form>
+                </div>
             </div>
         </div>
     </nav>
@@ -37,10 +44,11 @@
     <div
         class="mx-4 sm:container sm:mx-auto mt-8 flex flex-col-reverse sm:flex-row items-center justify-center sm:items-stretch sm:justify-between p-6 sm:p-8 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
         <!-- Left Side: Welcome Message and User Info -->
-        <div class="flex flex-col items-start">
-            <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200">Welcome Back! <span id="username"
-                    class="text-blue-500"><?= $loggedInUser['full_name'] ?></span></h1>
-            <div class="mt-4 flex items-center">
+        <div class="flex flex-col  items-center sm:items-start">
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 text-center sm:text-start">Welcome Back!
+                <span id="username" class="text-blue-500 block sm:inline-block"><?= $loggedInUser['full_name'] ?></span>
+            </h1>
+            <div class="mt-4 flex flex-col gap-2 sm:flex-row items-center">
                 <img src="./uploads/<?= $loggedInUser['profile_picture'] ?>"
                     class="w-32 h-32 rounded-full border-2 border-gray-300 bg-profile-placeholder bg-center bg-cover object-cover">
 
@@ -87,6 +95,8 @@
                                 <div class="flex items-center justify-center gap-4">
                                     <form method="POST" class="flex items-center flex-1">
                                         <input type="hidden" name="deleteSelf" value="<?= $loggedInUser['id'] ?>">
+                                        <input type="hidden" name="imageToDelete"
+                                            value="<?= $loggedInUser['profile_picture'] ?>">
                                         <button data-modal-hide="popup-modal-<?= $loggedInUser['id'] ?>" type="submit"
                                             class="danger-btn m-0">
                                             Yes, I'm sure
@@ -183,7 +193,7 @@
                                         <?php else: ?>
                                             <label for="file_input" class="label">Profile picture</label>
                                         <?php endif ?>
-                                        <input class="file-input" id="file_input" type="file" name="profilePicture">
+                                        <input class="file-input" id="file_input" type="file" name="newProfilePicture">
                                         <p class="mt-1.5 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
                                             PNG, or JPG
                                             (MAX. SIZE 5MB).</p>
@@ -331,7 +341,7 @@
                                                         <label for="file_input" class="label">Profile picture</label>
                                                     <?php endif ?>
                                                     <input class="file-input" id="file_input" type="file"
-                                                        name="profilePicture">
+                                                        name="newProfilePicture">
                                                     <p class="mt-1.5 text-sm text-gray-500 dark:text-gray-300"
                                                         id="file_input_help">
                                                         PNG, or JPG
@@ -339,6 +349,8 @@
                                                 </div>
 
                                                 <div class="flex items-center gap-2">
+                                                    <input type="hidden" name="removeOldImage"
+                                                        value="<?= $user['profile_picture'] ?>">
                                                     <button type="submit" name="editUser" value="<?= $user['id'] ?>"
                                                         class="default-btn flex-1">Save edits</button>
                                                 </div>
@@ -388,6 +400,8 @@
                                             <div class="flex items-center justify-center gap-4">
                                                 <form method="POST" class="flex items-center flex-1">
                                                     <input type="hidden" name="deleteUser" value="<?= $user['id'] ?>">
+                                                    <input type="hidden" name="imageToDelete"
+                                                        value="<?= $user['profile_picture'] ?>">
                                                     <button data-modal-hide="popup-modal-<?= $user['id'] ?>" type="submit"
                                                         class="danger-btn m-0">
                                                         Yes, I'm sure

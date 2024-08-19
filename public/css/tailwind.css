@@ -1923,10 +1923,10 @@ input:checked + .toggle-bg {
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;
   background-color: rgb(26 86 219 / var(--tw-bg-opacity));
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -1953,10 +1953,10 @@ input:checked + .toggle-bg {
 .link {
   display: block;
   border-radius: 0.25rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
@@ -2366,10 +2366,10 @@ input:checked + .toggle-bg {
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  padding-top: 0.625rem;
-  padding-bottom: 0.625rem;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 500;
@@ -2679,12 +2679,20 @@ input:checked + .toggle-bg {
     margin-top: auto;
   }
 
+  .sm\:inline-block {
+    display: inline-block;
+  }
+
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .sm\:flex-row {
     flex-direction: row;
+  }
+
+  .sm\:items-start {
+    align-items: flex-start;
   }
 
   .sm\:items-stretch {
@@ -2697,6 +2705,10 @@ input:checked + .toggle-bg {
 
   .sm\:p-8 {
     padding: 2rem;
+  }
+
+  .sm\:text-start {
+    text-align: start;
   }
 
   .sm\:text-xl {
