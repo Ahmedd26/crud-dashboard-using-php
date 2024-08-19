@@ -123,7 +123,7 @@ function updateUserInDB($id, $fullName = "", $profilePicture = "", $password = "
             $stmt->execute($params);
         }
 
-        return true;
+        return getSingleUser($id);
     } catch (PDOException $e) {
         return $e->getMessage();
     }

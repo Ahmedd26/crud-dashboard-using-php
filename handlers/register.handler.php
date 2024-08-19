@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] !== 4) {
         $fileType = $_FILES['profilePicture']['type'];
         $fileSize = $_FILES['profilePicture']['size'];
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
         if (!in_array($fileType, $allowedTypes) || $fileSize > 5_000_000) {
             // 5MB limit
             $errors['profilePicture'] = "Invalid profile picture. Only JPEG, PNG, and GIF formats are allowed and size must be less than 5MB.";

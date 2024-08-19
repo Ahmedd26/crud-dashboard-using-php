@@ -1218,10 +1218,6 @@ input:checked + .toggle-bg {
   margin-top: 2rem;
 }
 
-.\!mr-auto {
-  margin-right: auto !important;
-}
-
 .block {
   display: block;
 }
@@ -1262,12 +1258,12 @@ input:checked + .toggle-bg {
   height: 3rem;
 }
 
-.h-16 {
-  height: 4rem;
-}
-
 .h-3 {
   height: 0.75rem;
+}
+
+.h-32 {
+  height: 8rem;
 }
 
 .h-4 {
@@ -1298,10 +1294,6 @@ input:checked + .toggle-bg {
   height: auto;
 }
 
-.h-32 {
-  height: 8rem;
-}
-
 .max-h-full {
   max-height: 100%;
 }
@@ -1318,12 +1310,12 @@ input:checked + .toggle-bg {
   width: 3rem;
 }
 
-.w-16 {
-  width: 4rem;
-}
-
 .w-3 {
   width: 0.75rem;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .w-4 {
@@ -1344,10 +1336,6 @@ input:checked + .toggle-bg {
 
 .w-full {
   width: 100%;
-}
-
-.w-32 {
-  width: 8rem;
 }
 
 .max-w-60 {
@@ -1516,17 +1504,6 @@ input:checked + .toggle-bg {
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
 
-.divide-y > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-y-reverse: 0;
-  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
-  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
-}
-
-.divide-gray-500 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 1;
-  border-color: rgb(107 114 128 / var(--tw-divide-opacity));
-}
-
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1672,6 +1649,11 @@ input:checked + .toggle-bg {
   background-position: center;
 }
 
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -1814,6 +1796,11 @@ input:checked + .toggle-bg {
   color: rgb(240 82 82 / var(--tw-text-opacity)) !important;
 }
 
+.\!text-red-950 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(69 10 10 / var(--tw-text-opacity)) !important;
+}
+
 .text-blue-500 {
   --tw-text-opacity: 1;
   color: rgb(63 131 248 / var(--tw-text-opacity));
@@ -1872,16 +1859,6 @@ input:checked + .toggle-bg {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.\!text-red-600 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(224 36 36 / var(--tw-text-opacity)) !important;
-}
-
-.\!text-red-950 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(69 10 10 / var(--tw-text-opacity)) !important;
 }
 
 .opacity-0 {
@@ -2449,6 +2426,8 @@ input:checked + .toggle-bg {
   background-image: url('https://www.gravatar.com/avatar/?d=mp&s=150');
   background-size: cover;
   background-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 @media (min-width: 640px) {
@@ -2683,11 +2662,6 @@ input:checked + .toggle-bg {
 .dark\:hover\:text-white:hover:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.dark\:focus\:ring-blue-800:focus:is(.dark *) {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(30 66 159 / var(--tw-ring-opacity));
 }
 
 .dark\:focus\:ring-gray-600:focus:is(.dark *) {

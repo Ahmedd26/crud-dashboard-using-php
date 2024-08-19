@@ -35,14 +35,14 @@
     <!-- Body -->
     <!-- Hero Section -->
     <div
-        class="sm:container mx-4 sm:mx-auto mt-8 flex flex-col-reverse sm:flex-row items-center justify-center sm:items-stretch sm:justify-between p-6 sm:p-8 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+        class="mx-4 sm:container sm:mx-auto mt-8 flex flex-col-reverse sm:flex-row items-center justify-center sm:items-stretch sm:justify-between p-6 sm:p-8 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
         <!-- Left Side: Welcome Message and User Info -->
         <div class="flex flex-col items-start">
             <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200">Welcome Back! <span id="username"
                     class="text-blue-500"><?= $loggedInUser['full_name'] ?></span></h1>
             <div class="mt-4 flex items-center">
                 <img src="./uploads/<?= $loggedInUser['profile_picture'] ?>"
-                    class="w-32 h-32 rounded-full border-2 border-gray-300 bg-profile-placeholder bg-center bg-cover">
+                    class="w-32 h-32 rounded-full border-2 border-gray-300 bg-profile-placeholder bg-center bg-cover object-cover">
 
 
                 <div class="ml-4">
@@ -101,8 +101,8 @@
                     </div>
                 </div>
 
-
-                <!-- UPDATE: Main modal -->
+                <!--** ** ** UPDATE: Main modal ** ** **-->
+                <!--** ** ** UPDATE: Main modal ** ** **-->
                 <div id="authentication-modal-<?= $loggedInUser['id'] ?>" tabindex="-1" aria-hidden="true"
                     class="<?php if (!$test) {
                         echo 'hidden';
@@ -116,7 +116,7 @@
                             <div
                                 class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                    Edit your info
+                                    Edit <?= $loggedInUser['full_name'] ?> info
                                 </h3>
                                 <form method="POST">
                                     <input type="hidden" name="closeModal" value="true">
@@ -134,38 +134,65 @@
                             </div>
                             <!-- Modal body -->
                             <div class="p-4 md:p-5">
-                                <form class="space-y-4" action="#" novalidate enctype="multipart/form-data">
+                                <!--** ** **  UPDATE FORM ** ** **-->
+                                <!--** ** **  UPDATE FORM ** ** **-->
+                                <!--** ** **  UPDATE FORM ** ** **-->
+                                <form class="space-y-4" action="?page=home" method="POST" novalidate
+                                    enctype="multipart/form-data">
                                     <!-- username -->
-                                    <div>
-                                        <label for="name" class="label">
-                                            Name</label>
+                                    <div class="flex flex-col items-start justify-start">
+                                        <?php if (array_key_exists("name", $errors)): ?>
+                                            <label for="name" class="label !text-red-950 text-start">
+                                                <?= $errors["name"] ?>
+                                            </label>
+                                        <?php else: ?>
+                                            <label for="name" class="label">Name</label>
+                                        <?php endif ?>
                                         <input type="text" name="name" id="name" class="basic-input"
-                                            placeholder="john.doe@example.com" value="<?= $loggedInUser['full_name'] ?>"
-                                            required />
+                                            placeholder="john.doe@example.com" />
                                     </div>
                                     <!-- Password -->
-                                    <div>
-                                        <label for="password" class="label">
-                                            password</label>
+                                    <div class="flex flex-col items-start justify-start">
+                                        <?php if (array_key_exists("password", $errors)): ?>
+                                            <label for="password" class="label !text-red-950 text-start">
+                                                <?= $errors["password"] ?>
+                                            </label>
+                                        <?php else: ?>
+                                            <label for="password" class="label">Password</label>
+                                        <?php endif ?>
                                         <input type="password" name="password" id="password" placeholder="••••••••"
-                                            class="basic-input" required />
+                                            class="basic-input" />
                                     </div>
                                     <!-- Confirm password -->
-                                    <div>
-                                        <label for="confirmPassword" class="label">Confirm
-                                            Password</label>
+                                    <div class="flex flex-col items-start justify-start">
+                                        <?php if (array_key_exists("confirmPassword", $errors)): ?>
+                                            <label for="confirmPassword" class="label !text-red-950 text-start">
+                                                <?= $errors["confirmPassword"] ?>
+                                            </label>
+                                        <?php else: ?>
+                                            <label for="confirmPassword" class="label">ConfirmPassword</label>
+                                        <?php endif ?>
                                         <input type="password" name="confirmPassword" id="confirmPassword"
-                                            placeholder="••••••••" class="basic-input" required />
+                                            placeholder="••••••••" class="basic-input" />
                                     </div>
-                                    <div>
-                                        <label for="file_input" class="label">Profile picture</label>
+                                    <div class="flex flex-col items-start justify-start">
+                                        <?php if (array_key_exists("profilePicture", $errors)): ?>
+                                            <label for="file_input" class="label !text-red-950 text-start">
+                                                <?= $errors["profilePicture"] ?>
+                                            </label>
+                                        <?php else: ?>
+                                            <label for="file_input" class="label">Profile picture</label>
+                                        <?php endif ?>
                                         <input class="file-input" id="file_input" type="file" name="profilePicture">
                                         <p class="mt-1.5 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
                                             PNG, or JPG
                                             (MAX. SIZE 5MB).</p>
                                     </div>
+
                                     <div class="flex items-center gap-2">
-                                        <button type="submit" class="default-btn flex-1">Save edits</button>
+
+                                        <button type="submit" name="editSelf" value="<?= $loggedInUser['id'] ?>"
+                                            class="default-btn flex-1">Save edits</button>
                                     </div>
 
                                 </form>
@@ -173,11 +200,16 @@
                                     <input type="hidden" name="closeModal" value="true">
                                     <button type="submit" class="secondary-btn w-full ">cancel</button>
                                 </form>
+                                <?php if (array_key_exists("invalid", $errors)): ?>
+                                    <div class='p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 border border-red-800 dark:text-red-400'
+                                        role='alert'>
+                                        <?= $errors['invalid'] ?>
+                                    </div>
+                                <?php endif ?>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -252,7 +284,7 @@
                                             <!--** ** **  UPDATE FORM ** ** **-->
                                             <!--** ** **  UPDATE FORM ** ** **-->
                                             <!--** ** **  UPDATE FORM ** ** **-->
-                                            <form class="space-y-4  action=" ?page=home" method="POST" novalidate
+                                            <form class="space-y-4" action="?page=home" method="POST" novalidate
                                                 enctype="multipart/form-data">
                                                 <!-- username -->
                                                 <div class="flex flex-col items-start justify-start">
@@ -307,8 +339,8 @@
                                                 </div>
 
                                                 <div class="flex items-center gap-2">
-                                                    <input type="hidden" name="editUser" value="<?= $user['id'] ?>">
-                                                    <button type="submit" class="default-btn flex-1">Save edits</button>
+                                                    <button type="submit" name="editUser" value="<?= $user['id'] ?>"
+                                                        class="default-btn flex-1">Save edits</button>
                                                 </div>
 
                                             </form>

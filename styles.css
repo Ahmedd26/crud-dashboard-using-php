@@ -48,5 +48,5 @@
 }
 
 .team-avatar {
-    @apply mx-auto mb-4 w-36 h-36 rounded-full bg-profile-placeholder bg-center bg-cover;
+    @apply mx-auto mb-4 w-36 h-36 rounded-full bg-profile-placeholder bg-center bg-cover object-cover;
 }

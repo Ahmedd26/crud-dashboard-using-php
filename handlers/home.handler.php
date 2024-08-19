@@ -64,9 +64,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['closeModal'])) {
 $errors = [];
 $inputs = [];
 //** UPDATE LOGIC
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editUser'])) {
-    echo "test";
-    $userId = $_POST['editUser'];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['editUser']) || isset($_POST['editSelf']))) {
+
+    if (isset($_POST['editUser'])) {
+        $userId = $_POST['editUser'];
+    }
+
+    if (isset($_POST['editSelf'])) {
+        $userId = $_POST['editSelf'];
+    }
+    // $userId = $_POST['editUser'];
     $fullName = $_POST['name'];
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
@@ -87,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editUser'])) {
     if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] !== 4) {
         $fileType = $_FILES['profilePicture']['type'];
         $fileSize = $_FILES['profilePicture']['size'];
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
         if (!in_array($fileType, $allowedTypes) || $fileSize > 5_000_000) {
             // 5MB limit
             $errors['profilePicture'] = "Invalid profile picture. Only JPEG, PNG, and GIF formats are allowed and size must be less than 5MB.";
@@ -108,14 +115,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editUser'])) {
     }
     if (empty($errors)) {
         $test = false;
-        echo "No errrors";
         $update = updateUserInDB($userId, $fullName, $profilePicture, $password);
 
         if ($update) {
+            if (isset($_POST['editSelf'])) {
+                $_SESSION['loggedInUser'] = $update;
+            }
             storeImageLocally();
             header("Location: ?page=home");
             exit;
         } else {
+            print_r($update);
+            print_r($errors);
             $errors['invalid'] = 'An unexpected error occurred. Please try again.';
         }
     }
