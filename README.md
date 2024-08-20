@@ -20,13 +20,6 @@ This project is a simple demonstration of user authentication, management, and C
 - **Frontend:** HTML, CSS (Tailwind CSS), JavaScript, Flowbite
 - **Database:** MySQL
 
-**Project Structure**
-
-- **public:** Contains the public-facing files (index.php, login.php, register.php, etc.)
-- **includes:** Stores reusable PHP scripts (functions, database connection, etc.)
-- **css:** Contains custom CSS styles
-- **assets:** Stores images, JavaScript files, and other static assets
-
 **Installation and Setup**
 
 1. **Clone the repository:**
