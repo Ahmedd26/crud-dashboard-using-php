@@ -48,7 +48,9 @@ function authUser($email, $password)
         return false;
     }
 }
-
+//* DATA BASE AS A GLOBAL VARIABLE
+//* Closing connection might make conflict
+//* make sure to close DB connection after each DB request
 function registerUser($fullName, $email, $password, $profilePicture)
 {
     try {

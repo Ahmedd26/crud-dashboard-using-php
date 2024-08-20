@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        gray: require("tailwindcss/colors").zinc,
+      },
       backgroundImage: {
         "profile-placeholder":
           "url('https://www.gravatar.com/avatar/?d=mp&s=150')",
