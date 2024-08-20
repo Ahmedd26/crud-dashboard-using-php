@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/public/css/tailwind.css" rel="stylesheet">
     <title>Register</title>
-    <script src="theme-toggle.js" defer></script>
+    <script src="../theme-toggle.js" defer></script>
 
 </head>
 
@@ -47,10 +47,11 @@
     <div class="my-8 max-w-xl mx-auto">
         <div class="p-4 md:p-5">
             <form class="space-y-5" action="?page=register" method="POST" enctype="multipart/form-data" novalidate>
+                <input type="hidden" name="register">
                 <div>
-                    <?php if (array_key_exists("name", $errors)): ?>
+                    <?php if (array_key_exists("name", $_SESSION['errors'])): ?>
                         <label for="name" class="label !text-red-500">
-                            <?= $errors["name"] ?>
+                            <?= $_SESSION['errors']["name"] ?>
                         </label>
                     <?php else: ?>
                         <label for="name" class="label">Name</label>
@@ -58,9 +59,9 @@
                     <input type="text" name="name" id="name" class="basic-input" placeholder="John Doe" required />
                 </div>
                 <div>
-                    <?php if (array_key_exists("email", $errors)): ?>
+                    <?php if (array_key_exists("email", $_SESSION['errors'])): ?>
                         <label for="email" class="label !text-red-500">
-                            <?= $errors["email"] ?>
+                            <?= $_SESSION['errors']["email"] ?>
                         </label>
                     <?php else: ?>
                         <label for="email" class="label">Email</label>
@@ -68,9 +69,9 @@
                         placeholder="name@company.com" required />
                 </div>
                 <div>
-                    <?php if (array_key_exists("password", $errors)): ?>
+                    <?php if (array_key_exists("password", $_SESSION['errors'])): ?>
                         <label for="password" class="label !text-red-500">
-                            <?= $errors["password"] ?>
+                            <?= $_SESSION['errors']["password"] ?>
                         </label>
                     <?php else: ?>
                         <label for="password" class="label">Password</label>
@@ -79,9 +80,9 @@
                         required />
                 </div>
                 <div>
-                    <?php if (array_key_exists("confirmPassword", $errors)): ?>
+                    <?php if (array_key_exists("confirmPassword", $_SESSION['errors'])): ?>
                         <label for="confirmPassword" class="label !text-red-500">
-                            <?= $errors["confirmPassword"] ?></label>
+                            <?= $_SESSION['errors']["confirmPassword"] ?></label>
                     <?php else: ?>
                         <label for="confirmPassword" class="label">Confirm password</label>
                     <?php endif ?>
@@ -89,9 +90,9 @@
                         class="basic-input" required />
                 </div>
                 <div>
-                    <?php if (array_key_exists("profilePicture", $errors)): ?>
+                    <?php if (array_key_exists("profilePicture", $_SESSION['errors'])): ?>
                         <label for="file_input" class="label !text-red-500">
-                            <?= $errors["profilePicture"] ?>
+                            <?= $_SESSION['errors']["profilePicture"] ?>
                         </label>
                     <?php else: ?>
                         <label for="file_input" class="label">Profile picture</label>
@@ -107,16 +108,9 @@
                     </a>
                 </div>
                 <div>
-                    <?php if (array_key_exists("email_exists", $errors)): ?>
+                    <?php if (array_key_exists("internal_error", $_SESSION['errors'])): ?>
                         <div class='alert' role='alert'>
-                            <?= $errors['email_exists'] ?>
-                        </div>
-                    <?php endif ?>
-                </div>
-                <div>
-                    <?php if (array_key_exists("database", $errors)): ?>
-                        <div class='alert' role='alert'>
-                            <?= $errors['database'] ?>
+                            <?= $_SESSION['errors']['internal_error'] ?>
                         </div>
                     <?php endif ?>
                 </div>

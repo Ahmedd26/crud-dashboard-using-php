@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/public/css/tailwind.css" rel="stylesheet">
     <title>Login</title>
-    <script src="theme-toggle.js" defer></script>
+    <script src="../theme-toggle.js" defer></script>
 
 </head>
 
@@ -43,44 +43,40 @@
             </div>
         </div>
     </nav>
+
     <!-- Form -->
     <div class="my-8 max-w-lg mx-auto">
         <div class="p-4 md:p-5">
             <form class="space-y-6" action="?page=login" method="POST" novalidate>
                 <div>
-                    <label for="email" class="label">Email</label>
+                    <?php if (array_key_exists("email", $_SESSION['errors'])): ?>
+                        <label for="email" class="label !text-red-500">
+                            <?= $_SESSION['errors']["email"] ?>
+                        </label>
+                    <?php else: ?>
+                        <label for="email" class="label">Email</label>
+                    <?php endif ?>
                     <input type="email" name="email" id="email" class="basic-input" placeholder="john.doe@example.com"
                         required />
                 </div>
                 <div>
-                    <?php if (array_key_exists("email", $errors)): ?>
-                        <div class='p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 border border-red-800 dark:text-red-400'
-                            role='alert'>
-                            <?= $errors['email'] ?>
-                        </div>
+                    <?php if (array_key_exists("password", $_SESSION['errors'])): ?>
+                        <label for="password" class="label !text-red-500">
+                            <?= $_SESSION['errors']["password"] ?>
+                        </label>
+                    <?php else: ?>
+                        <label for="password" class="label">password</label>
                     <?php endif ?>
-                </div>
-                <div>
-                    <label for="password" class="label">
-                        Password</label>
                     <input type="password" name="password" id="password" placeholder="••••••••" class="basic-input"
                         required />
                 </div>
+
                 <div>
-                    <?php if (array_key_exists("password", $errors)): ?>
-                        <div class='p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 border border-red-800 dark:text-red-400'
-                            role='alert'>
-                            <?= $errors['password'] ?>
-                        </div>
-                    <?php endif ?>
-                </div>
-                <div>
-                    <?php if (array_key_exists("invalid", $errors)): ?>
-                        <div class='p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 border border-red-800 dark:text-red-400'
-                            role='alert'>
-                            <?= $errors['invalid'] ?>
-                        </div>
-                    <?php endif ?>
+                    <?php if (array_key_exists("invalid", $_SESSION['errors'])): ?>
+                        <h4 class='text-md !text-red-500' role='alert'>
+                            <?= $_SESSION['errors']['invalid'] ?>
+                        </h4>
+                    <?php endif; ?>
                 </div>
                 <input type="hidden" name="login" value="true" />
                 <button type="submit" class="full-btn">Login</button>

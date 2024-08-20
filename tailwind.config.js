@@ -1,3 +1,5 @@
+const { blue } = require("tailwindcss/colors");
+
 module.exports = {
   darkMode: "class",
 
@@ -9,7 +11,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        gray: require("tailwindcss/colors").zinc,
+        // gray: require("tailwindcss/colors").zinc,
+        gray: require("tailwindcss/colors").stone,
+        blue: require("tailwindcss/colors").amber,
       },
       backgroundImage: {
         "profile-placeholder":
